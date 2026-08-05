@@ -1,4 +1,4 @@
-package ru.job4j.tracker;
+package checkstyle;
 
 public class Item {
     private int id;
