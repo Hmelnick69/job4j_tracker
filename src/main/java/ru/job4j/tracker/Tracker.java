@@ -1,4 +1,4 @@
-package checkstyle;
+package ru.job4j.tracker;
 
 public class Tracker {
     private final Item[] items = new Item[100];
