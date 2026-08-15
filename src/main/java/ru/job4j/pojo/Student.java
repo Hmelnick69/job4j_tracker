@@ -8,7 +8,6 @@ public class Student {
     private String group;
     private LocalDate startDate;
 
-
     public String getFullName() {
         return fullName;
     }
