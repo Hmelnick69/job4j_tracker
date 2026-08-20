@@ -9,5 +9,7 @@ public class StartUI {
         System.out.println(item
                 .getCreated()
                 .format(formatter));
+        Item toStringDemo = new Item(1, "second");
+        System.out.println(toStringDemo);
     }
 }
