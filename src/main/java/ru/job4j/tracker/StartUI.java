@@ -27,27 +27,39 @@ public class StartUI {
                 } else {
                     System.out.println("Хранилище еще 1не содержит заявок");
                 }
-            } else if (select == 6) {
-                    run = false;
+            } else if (select == 2) {
+                System.out.println("=== Редактирование заявки ===");
+                System.out.print("Введите id: ");
+                int id = Integer.parseInt(scanner.nextLine());
+                System.out.print("Введите имя: ");
+                String name = scanner.nextLine();
+                Item item = new Item(name);
+                if (tracker.replace(id, item)) {
+                    System.out.println("Заявка изменена успешно.");
+                } else {
+                    System.out.println("Ошибка замены заявки.");
                 }
+            } else if (select == 6) {
+                run = false;
             }
-        }
-
-        private void showMenu() {
-            String[] menu = {
-                    "Добавить новую заявку", "Показать все заявки", "Изменить заявку",
-                    "Удалить заявку", "Показать заявку по id", "Показать заявки по имени",
-                    "Завершить программу"
-            };
-            System.out.println("Меню:");
-            for (int i = 0; i < menu.length; i++) {
-                System.out.println(i + ". " + menu[i]);
-            }
-        }
-
-        public static void main(String[]args) {
-            Scanner scanner = new Scanner(System.in);
-            Tracker tracker = new Tracker();
-            new StartUI().init(scanner, tracker);
         }
     }
+
+    private void showMenu() {
+        String[] menu = {
+                "Добавить новую заявку", "Показать все заявки", "Изменить заявку",
+                "Удалить заявку", "Показать заявку по id", "Показать заявки по имени",
+                "Завершить программу"
+        };
+        System.out.println("Меню:");
+        for (int i = 0; i < menu.length; i++) {
+            System.out.println(i + ". " + menu[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Tracker tracker = new Tracker();
+        new StartUI().init(scanner, tracker);
+    }
+}
