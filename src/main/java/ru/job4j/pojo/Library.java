@@ -32,7 +32,7 @@ public class Library {
         for (int index = 0; index < array.length; index++) {
             Book book = array[index];
             String name = book.getName();
-            if (name == "Clean code") {
+            if (name.equals("Clean code")) {
                 System.out.println(book.getName() + " - " + book.getPageCount() + " страниц");
             }
         }
