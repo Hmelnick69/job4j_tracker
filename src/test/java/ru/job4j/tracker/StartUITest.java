@@ -38,8 +38,6 @@ class StartUITest {
         Tracker tracker = new Tracker();
         Item item = new Item("For delete item");
         tracker.add(item);
-        String[] answers = {
-                String.valueOf(item.getId()), "For delete item"};
         tracker.delete(item.getId());
         Item expected = tracker.findById(item.getId());
         assertThat(expected).isNull();
