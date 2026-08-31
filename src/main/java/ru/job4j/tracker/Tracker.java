@@ -28,7 +28,10 @@ public class Tracker {
         /* Находим индекс */
         int index = indexOf(id);
         /* Если индекс найден возвращаем item, иначе null */
-        return (index != -1) ? items[index] : null;
+        if (index == -1) {
+            return null;
+        }
+        return items[index];
     }
 
     public Item[] findByName(String key) {
@@ -61,9 +64,9 @@ public class Tracker {
         if (item == null || index == -1) {
             return result;
         }
-            item.setId(id);
-            items[index] = item;
-            result = true;
+        item.setId(id);
+        items[index] = item;
+        result = true;
         return result;
     }
 
