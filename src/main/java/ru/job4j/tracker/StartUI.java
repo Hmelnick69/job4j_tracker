@@ -32,12 +32,12 @@ public class StartUI {
         System.out.println("=== Вывод заявок по имени ===");
         String name = input.askStr(MSG_NAME);
         Item[] items = tracker.findByName(name);
-        if (items.length > 0) {
-            for (Item item : items) {
-                System.out.println(item);
-            }
-        } else {
+        if (items.length == 0) {
             System.out.println("Заявки с именем: " + name + " не найдены.");
+            return;
+        }
+        for (Item item : items) {
+            System.out.println(item);
         }
     }
 
@@ -45,11 +45,11 @@ public class StartUI {
         System.out.println("=== Вывод заявки по id ===");
         int id = input.askInt(MSG_ID);
         Item item = tracker.findById(id);
-        if (item != null) {
-            System.out.println(item);
-        } else {
+        if (item == null) {
             System.out.println("Заявка с введенным id: " + id + " не найдена.");
+            return;
         }
+        System.out.println(item);
     }
 
     public static void deleteItem(Input input, Tracker tracker) {
@@ -57,7 +57,11 @@ public class StartUI {
         int id = input.askInt(MSG_ID);
         Item item = tracker.findById(id);
         tracker.delete(id);
-        System.out.println(item != null ? "Заявка удалена успешно." : "Ошибка удаления заявки.");
+        if (item == null) {
+            System.out.println("Ошибка удаления заявки.");
+            return;
+        }
+        System.out.println("Заявка удалена успешно.");
     }
 
     public static void replaceItem(Input input, Tracker tracker) {
@@ -65,22 +69,22 @@ public class StartUI {
         int id = input.askInt(MSG_ID);
         String name = input.askStr(MSG_NAME);
         Item item = new Item(name);
-        if (tracker.replace(id, item)) {
-            System.out.println("Заявка изменена успешно.");
-        } else {
+        if (!tracker.replace(id, item)) {
             System.out.println("Ошибка замены заявки.");
+            return;
         }
+        System.out.println("Заявка изменена успешно.");
     }
 
     public static void findAllItems(Tracker tracker) {
         System.out.println("=== Вывод всех заявок ===");
         Item[] items = tracker.findAll();
-        if (items.length > 0) {
-            for (Item item : items) {
-                System.out.println(item);
-            }
-        } else {
+        if (items.length == 0) {
             System.out.println("Хранилище еще не содержит заявок");
+            return;
+        }
+        for (Item item : items) {
+            System.out.println(item);
         }
     }
 
