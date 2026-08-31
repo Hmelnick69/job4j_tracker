@@ -55,9 +55,7 @@ public class StartUI {
     public static void deleteItem(Input input, Tracker tracker) {
         System.out.println("=== Удаление заявки ===");
         int id = input.askInt(MSG_ID);
-        Item item = tracker.findById(id);
-        tracker.delete(id);
-        if (item == null) {
+        if (!tracker.delete(id)) {
             System.out.println("Ошибка удаления заявки.");
             return;
         }

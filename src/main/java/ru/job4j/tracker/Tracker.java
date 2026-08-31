@@ -67,10 +67,10 @@ public class Tracker {
         return result;
     }
 
-    public void delete(int id) {
+    public boolean delete(int id) {
         int index = indexOf(id);
         if (index == -1) {
-            return;
+            return false;
         }
         int start = index + 1;
         int distPos = index;
@@ -78,5 +78,6 @@ public class Tracker {
         System.arraycopy(items, start, items, distPos, length);
         items[size - 1] = null;
         size--;
+        return true;
     }
 }
