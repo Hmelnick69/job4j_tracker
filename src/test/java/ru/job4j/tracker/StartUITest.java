@@ -4,10 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
+import ru.job4j.action.*;
+import ru.job4j.input.Input;
+import ru.job4j.input.MockInput;
+import ru.job4j.output.Output;
+import ru.job4j.output.StubOutput;
 
 @Execution(ExecutionMode.CONCURRENT)
 class StartUITest {
