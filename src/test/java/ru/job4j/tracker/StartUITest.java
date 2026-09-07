@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
@@ -36,6 +38,64 @@ class StartUITest {
     }
 
     @Test
+    void whenFindAllAction() {
+        Output output = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item first = tracker.add(new Item("First"));
+        Item second = tracker.add(new Item("Second"));
+        Input input = new MockInput(
+                new String[]{"0", "1"}
+        );
+        UserAction[] actions = {
+                new FindAllAction(output),  // индекс 0
+                new ExitAction(output)      // индекс 1
+        };
+        new StartUI(output).init(input, tracker, actions);
+        Item[] actionsArray = tracker.findAll();
+        var printActions = "";
+        for (Item item : actionsArray) {
+            printActions += item.toString() + System.lineSeparator();
+        }
+        assertThat(output.toString()).isEqualTo(
+                "Меню:" + System.lineSeparator()
+                        + "0. Показать все заявки" + System.lineSeparator()
+                        + "1. Завершить программу" + System.lineSeparator()
+                        + "=== Вывод всех заявок ===" + System.lineSeparator()
+                        + printActions
+                        + "Меню:" + System.lineSeparator()
+                        + "0. Показать все заявки" + System.lineSeparator()
+                        + "1. Завершить программу" + System.lineSeparator()
+                        + "=== Завершение программы ===" + System.lineSeparator()
+        );
+    }
+
+    @Test
+    void whenFindById() {
+        Output output = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("First"));
+        Input input = new MockInput(
+                new String[]{"0", String.valueOf(item.getId()), "1"}
+        );
+        UserAction[] actions = {
+                new FindByIdAction(output),  // индекс 0
+                new ExitAction(output)      // индекс 1
+        };
+        new StartUI(output).init(input, tracker, actions);
+        Item created = tracker.findAll()[0];
+        assertThat(output.toString()).isEqualTo(
+                "Меню:" + System.lineSeparator()
+                        + "0. Вывод заявки по id" + System.lineSeparator()
+                        + "1. Завершить программу" + System.lineSeparator()
+                        + created + System.lineSeparator()
+                        + "Меню:" + System.lineSeparator()
+                        + "0. Вывод заявки по id" + System.lineSeparator()
+                        + "1. Завершить программу" + System.lineSeparator()
+                        + "=== Завершение программы ===" + System.lineSeparator()
+        );
+    }
+
+    @Test
     void whenReplaceItem() {
         Output output = new StubOutput();
         Tracker tracker = new Tracker();
@@ -56,6 +116,38 @@ class StartUITest {
                         + "Заявка изменена успешно." + System.lineSeparator()
                         + "Меню:" + System.lineSeparator()
                         + "0. Редактирование заявки" + System.lineSeparator()
+                        + "1. Завершить программу" + System.lineSeparator()
+                        + "=== Завершение программы ===" + System.lineSeparator()
+        );
+    }
+
+    @Test
+    void whenFindByName() {
+        Output output = new StubOutput();
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("First"));
+        tracker.add(new Item("Second"));
+        Item secondItem = tracker.add(new Item("First"));
+        Input input = new MockInput(
+                new String[]{"0", item.getName(), "1"}
+        );
+        UserAction[] actions = {
+                new FindByNameAction(output),  // индекс 0
+                new ExitAction(output)      // индекс 1
+        };
+        new StartUI(output).init(input, tracker, actions);
+        Item[] createdActions = {item, secondItem};
+        var printActions = "";
+        for (Item items : createdActions) {
+            printActions += items.toString() + System.lineSeparator();
+        }
+        assertThat(output.toString()).isEqualTo(
+                "Меню:" + System.lineSeparator()
+                        + "0. Вывод заявок по имени" + System.lineSeparator()
+                        + "1. Завершить программу" + System.lineSeparator()
+                        + printActions
+                        + "Меню:" + System.lineSeparator()
+                        + "0. Вывод заявок по имени" + System.lineSeparator()
                         + "1. Завершить программу" + System.lineSeparator()
                         + "=== Завершение программы ===" + System.lineSeparator()
         );
