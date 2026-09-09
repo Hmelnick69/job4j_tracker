@@ -10,7 +10,7 @@ class BackArrayTest {
         String[] names = {"Petr", "Ivan", "Nik", "Vasya"};
         String[] result = new BackArray().turn(names);
         String[] expected = {"Vasya", "Nik", "Ivan", "Petr"};
-        assertThat(result).isEqualTo(expected);
+        Assertions.assertThat(result).isEqualTo(expected);
     }
 
     @Test
@@ -18,6 +18,6 @@ class BackArrayTest {
         String[] names = {"Petr", "Ivan", "Andrey", "Nik", "Vasya"};
         String[] result = new BackArray().turn(names);
         String[] expected = {"Vasya", "Nik", "Andrey", "Ivan", "Petr"};
-        assertThat(result).isEqualTo(expected);
+        Assertions.assertThat(result).isEqualTo(expected);
     }
 }
