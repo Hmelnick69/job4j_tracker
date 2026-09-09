@@ -1,8 +1,8 @@
 package ru.job4j.ex;
 
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertThrows;
+import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
