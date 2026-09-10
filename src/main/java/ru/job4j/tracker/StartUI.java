@@ -5,8 +5,6 @@ import ru.job4j.input.ConsoleOutput;
 import ru.job4j.input.Input;
 import ru.job4j.output.Output;
 
-import static java.lang.System.out;
-
 public class StartUI {
     private final Output output;
 
@@ -20,7 +18,7 @@ public class StartUI {
             showMenu(actions);
             int select = input.askInt("Выбрать: ");
             if (select < 0 || select >= actions.length) {
-                out.println("Неверный ввод, вы можете выбрать: 0 .. " + (actions.length - 1));
+                output.println("Неверный ввод, вы можете выбрать: 0 .. " + (actions.length - 1));
                 continue;
             }
             UserAction action = actions[select];
