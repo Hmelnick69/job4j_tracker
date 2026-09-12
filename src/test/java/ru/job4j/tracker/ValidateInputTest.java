@@ -1,12 +1,15 @@
 package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import ru.job4j.input.Input;
 import ru.job4j.input.MockInput;
 import ru.job4j.output.Output;
 import ru.job4j.output.StubOutput;
 
 import static org.assertj.core.api.Assertions.assertThat;
+@Execution(ExecutionMode.CONCURRENT)
 
 class ValidateInputTest {
 
