@@ -26,7 +26,7 @@ class StartUITest {
                 new ExitAction(output)      // индекс 1
         };
         new StartUI(output).init(input, tracker, actions);
-        Item created = tracker.findAll()[0];
+        Item created = tracker.findById(1);
         assertThat(output.toString()).isEqualTo(
                 "Меню:" + System.lineSeparator()
                         + "0. Добавить новую заявку" + System.lineSeparator()
