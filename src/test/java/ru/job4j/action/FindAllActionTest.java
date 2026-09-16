@@ -7,9 +7,6 @@ import ru.job4j.output.Output;
 import ru.job4j.output.StubOutput;
 import ru.job4j.tracker.Item;
 import ru.job4j.tracker.Tracker;
-
-import java.util.Arrays;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FindAllActionTest {
@@ -19,6 +16,10 @@ class FindAllActionTest {
         Output output = new StubOutput();
         UserAction action = new FindAllAction(output);
         Tracker tracker = new Tracker();
+        Item[] items = new Item[]{
+                tracker.add(new Item("First")),
+                tracker.add(new Item("Second"))
+        };
         Input input = new MockInput(new String[]{"Mock Input"});
         boolean result = action.execute(input, tracker);
         assertThat(result).isTrue();

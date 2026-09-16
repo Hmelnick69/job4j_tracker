@@ -22,11 +22,11 @@ class StartUITest {
                 new String[]{"0", "New name", "1"}
         );
         UserAction[] actions = {
-                new CreateAction(output),  // индекс 0
-                new ExitAction(output)      // индекс 1
+                new CreateAction(output),
+                new ExitAction(output)
         };
         new StartUI(output).init(input, tracker, actions);
-        Item created = tracker.findById(1);
+        Item created = tracker.findByName("New name")[0];
         assertThat(output.toString()).isEqualTo(
                 "Меню:" + System.lineSeparator()
                         + "0. Добавить новую заявку" + System.lineSeparator()
