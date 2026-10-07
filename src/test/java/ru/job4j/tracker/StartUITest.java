@@ -26,13 +26,14 @@ class StartUITest {
                 new ExitAction(output)
         };
         new StartUI(output).init(input, tracker, actions);
-        Item created = tracker.findByName("New name")[0];
+        var request = "New name";
+        var result = tracker.findByName(request);
         assertThat(output.toString()).isEqualTo(
                 "Меню:" + System.lineSeparator()
                         + "0. Добавить новую заявку" + System.lineSeparator()
                         + "1. Завершить программу" + System.lineSeparator()
                         + "=== Создание новой заявки ===" + System.lineSeparator()
-                        + "Добавленная заявка: " + created + System.lineSeparator()
+                        + "Добавленная заявка: " + result[0] + System.lineSeparator()
                         + "Меню:" + System.lineSeparator()
                         + "0. Добавить новую заявку" + System.lineSeparator()
                         + "1. Завершить программу" + System.lineSeparator()
