@@ -12,6 +12,8 @@ import ru.job4j.input.MockInput;
 import ru.job4j.output.Output;
 import ru.job4j.output.StubOutput;
 
+import java.util.List;
+
 @Execution(ExecutionMode.CONCURRENT)
 class StartUITest {
     @Test
@@ -21,10 +23,10 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", "New name", "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new CreateAction(output),
                 new ExitAction(output)
-        };
+                );
         new StartUI(output).init(input, tracker, actions);
         var request = "New name";
         var result = tracker.findByName(request);
@@ -33,7 +35,7 @@ class StartUITest {
                         + "0. Добавить новую заявку" + System.lineSeparator()
                         + "1. Завершить программу" + System.lineSeparator()
                         + "=== Создание новой заявки ===" + System.lineSeparator()
-                        + "Добавленная заявка: " + result[0] + System.lineSeparator()
+                        + "Добавленная заявка: " + result.get(0) + System.lineSeparator()
                         + "Меню:" + System.lineSeparator()
                         + "0. Добавить новую заявку" + System.lineSeparator()
                         + "1. Завершить программу" + System.lineSeparator()
@@ -50,12 +52,12 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new FindAllAction(output),  // индекс 0
                 new ExitAction(output)      // индекс 1
-        };
+        );
         new StartUI(output).init(input, tracker, actions);
-        Item[] actionsArray = tracker.findAll();
+        List<Item> actionsArray = tracker.findAll();
         var printActions = "";
         for (Item item : actionsArray) {
             printActions += item.toString() + System.lineSeparator();
@@ -81,17 +83,16 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", String.valueOf(item.getId()), "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new FindByIdAction(output),  // индекс 0
                 new ExitAction(output)      // индекс 1
-        };
+        );
         new StartUI(output).init(input, tracker, actions);
-        Item created = tracker.findAll()[0];
         assertThat(output.toString()).isEqualTo(
                 "Меню:" + System.lineSeparator()
                         + "0. Вывод заявки по id" + System.lineSeparator()
                         + "1. Завершить программу" + System.lineSeparator()
-                        + created + System.lineSeparator()
+                        + item + System.lineSeparator()
                         + "Меню:" + System.lineSeparator()
                         + "0. Вывод заявки по id" + System.lineSeparator()
                         + "1. Завершить программу" + System.lineSeparator()
@@ -107,10 +108,10 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", String.valueOf(item.getId()), "New name", "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new ReplaceAction(output),  // индекс 0
                 new ExitAction(output)      // индекс 1
-        };
+        );
         new StartUI(output).init(input, tracker, actions);
         assertThat(output.toString()).isEqualTo(
                 "Меню:" + System.lineSeparator()
@@ -135,10 +136,10 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", item.getName(), "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new FindByNameAction(output),  // индекс 0
                 new ExitAction(output)      // индекс 1
-        };
+        );
         new StartUI(output).init(input, tracker, actions);
         Item[] createdActions = {item, secondItem};
         var printActions = "";
@@ -165,10 +166,10 @@ class StartUITest {
         Input input = new MockInput(
                 new String[]{"0", String.valueOf(item.getId()), "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new DeleteAction(output),  // индекс 0
                 new ExitAction(output)     // индекс 1
-        };
+        );
         new StartUI(output).init(input, tracker, actions);
         assertThat(output.toString()).isEqualTo(
                 "Меню:" + System.lineSeparator()
@@ -189,9 +190,9 @@ class StartUITest {
                 new String[]{"0"}
         );
         Tracker tracker = new Tracker();
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new ExitAction(output)
-        };
+        );
         new StartUI(output).init(input, tracker, actions);
         assertThat(output.toString()).isEqualTo(
                 "Меню:" + System.lineSeparator()
@@ -207,9 +208,9 @@ class StartUITest {
                 new String[] {"1", "0"}
         );
         Tracker tracker = new Tracker();
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new ExitAction(output)
-        };
+        );
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(

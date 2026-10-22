@@ -4,6 +4,8 @@ import ru.job4j.input.Input;
 import ru.job4j.output.Output;
 import ru.job4j.tracker.*;
 
+import java.util.List;
+
 public class FindByNameAction implements UserAction {
     private final Output output;
 
@@ -21,8 +23,8 @@ public class FindByNameAction implements UserAction {
     @Override
     public boolean execute(Input input, Tracker tracker) {
         String name = input.askStr(MSG_NAME);
-        Item[] items = tracker.findByName(name);
-        if (items.length == 0) {
+        List<Item> items = tracker.findByName(name);
+        if (items.isEmpty()) {
             output.println("Заявки с именем: " + name + " не найдены.");
             return false;
         }

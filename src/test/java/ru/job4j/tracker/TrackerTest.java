@@ -7,6 +7,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Execution(ExecutionMode.CONCURRENT)
 
 public class TrackerTest {
@@ -23,20 +26,20 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item first = tracker.add(new Item("First"));
         Item second = tracker.add(new Item("Second"));
-        Item[] expected = new Item[]{first, second};
-        Item[] result = tracker.findAll();
+        List<Item> expected = List.of(first, second);
+        List<Item> result = tracker.findAll();
         assertThat(result).isEqualTo(expected);
     }
 
     @Test
-    public void whenTestFindByNameCheckArrayLength() {
+    public void whenTestFindByNameCheckListSize() {
         Tracker tracker = new Tracker();
         Item first = tracker.add(new Item("First"));
         tracker.add(new Item("First"));
         tracker.add(new Item("Second"));
         tracker.add(new Item("First"));
-        Item[] result = tracker.findByName(first.getName());
-        assertThat(result.length).isEqualTo(3);
+        List<Item> result = new ArrayList<>(tracker.findByName(first.getName()));
+        assertThat(result.size()).isEqualTo(3);
     }
 
     @Test
@@ -46,8 +49,8 @@ public class TrackerTest {
         tracker.add(new Item("First"));
         Item secondCopy = tracker.add(new Item("Second"));
         tracker.add(new Item("First"));
-        Item[] result = tracker.findByName(second.getName());
-        Item[] expected = {second, secondCopy};
+        List<Item> result = tracker.findByName(second.getName());
+        List<Item> expected = List.of(second, secondCopy);
         assertThat(result).isEqualTo(expected);
     }
 
