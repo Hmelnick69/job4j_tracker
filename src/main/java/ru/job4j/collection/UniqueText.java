@@ -13,8 +13,8 @@ public class UniqueText {
             check.add(texts);
         }
         /* for-each text -> hashSet.contains */
-        for (String words : check)  {
-            if (!check.contains(text)) {
+        for (String words : text)  {
+            if (!check.contains(words)) {
                 result = false;
             }
         }
